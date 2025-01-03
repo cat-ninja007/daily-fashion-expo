@@ -2,6 +2,7 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { Drawer } from "expo-router/drawer";
 import { AntDesign } from "@expo/vector-icons";
 
+
 const RootLayout = () => {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
@@ -27,6 +28,7 @@ const RootLayout = () => {
               backgroundColor: '#D1E5C2',
             },
             headerTitleAlign: 'center',
+
             drawerIcon: ({ color, size }) => (
               <AntDesign name="plus" size={size} color={color} />
             ),
