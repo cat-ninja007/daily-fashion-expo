@@ -1,7 +1,7 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
 import { ImageSlider } from 'react-native-image-slider-banner'
-import { imageSlider } from '@/data/Data';
+import { imageSlider, categoryList } from '@/data/Data';
 import { Image } from 'react-native';
 
 
@@ -11,13 +11,39 @@ const Index: React.FC = () => {
     <View style={styles.mainContainer}>
       <ImageSlider
           data={imageSlider}
-          caroselImageStyle={{ resizeMode: 'cover', height: 250 }}
+          caroselImageStyle={{ resizeMode: 'cover', height: 210 }}
           autoPlay={true}
           // onItemChanged={(item) => console.log("item", item)}
           closeIconColor="#fff"
       />
+      <View style={styles.titleContainer}>
+        <Text style={styles.text}>
+          Categories
+        </Text>
+      </View>
+      <FlatList 
+        data={categoryList}
+        key={3}
+        numColumns={3}
+        keyExtractor={(item) => item.id.toString()}
+        contentContainerStyle={styles.flatListContainer}
+        showsVerticalScrollIndicator={false}
+        renderItem={({ item }) => {
+          return (
+            <TouchableOpacity
+            style={styles.button}
+            >
+              <Image
+              source={{ uri: item.icon }}
+              style={styles.icon}
+              />
+              <Text style={styles.itemName} >{item.name}</Text>
+            </TouchableOpacity>
+          )
+          }}
+      />
       
-      <Text style={styles.text}>Home Screen</Text>
+      
     </View>
   );
 };
@@ -26,20 +52,38 @@ const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
     backgroundColor: 'white',
   },
   text: {
-    fontSize: 20,
-    marginTop: 20,
-    textAlign: 'center',
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: 'black'
   },
-  dotStyle: {
-    width: 10,
-    height: 10,
-    borderRadius: 5,
-    margin: 0,
+  titleContainer: {
+    marginTop: 2,
+    alignItems: 'center',
   },
+  flatListContainer: {
+    padding: 8,
+  },
+  button: {
+    flex: 1,
+    margin: 8,
+    borderWidth: 1,
+    borderColor: '#7CAF58',
+    borderRadius: 10,
+    height: 130,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  icon: {
+    width: 100,
+    height: 100,
+    resizeMode: 'contain'
+  },
+  itemName: {
+    color: 'black'
+  }
 });
 
 export default Index;
