@@ -1,0 +1,3 @@
+eas build --platform android --profile development
+(build app could take 15 minutes)
+npx expo start
