@@ -19,14 +19,8 @@ const AddProductScreen = () => {
     facebook: '',
     phoneNumber: ''
   })
-
-  // const dropdownRef = useRef({});
   
   const dropdownRef = useRef<SelectDropdown>(null);
-  
-  
-  
-  
 
   const addImage = async () => {
     try {
@@ -115,12 +109,6 @@ const AddProductScreen = () => {
       }
     };
   };
-
-  // useEffect(() => {
-  //   if (dropdownRef.current) {
-  //     dropdownRef.current.reset();
-  //   }
-  // }, []);
   
 
   useEffect(() => {
