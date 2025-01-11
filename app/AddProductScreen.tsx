@@ -7,6 +7,7 @@ import { categoryList } from '@/data/Data';
 import realm from '@/store/realm';
 import { ProductSchema } from '@/store/realm/ProductSchema';
 
+
 const AddProductScreen = () => {
   
   const [productData, setProductData]= useState({
