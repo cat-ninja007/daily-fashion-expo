@@ -12,8 +12,11 @@ const Index: FC = () => {
   const handleIconPress = (categoryId: number) => {
     // Fetch all products from Realm, don't filter here, just pass all products
     const products = realm.objects<Product>("Product").filtered(`category = ${categoryId}`);
-    console.log(products)
-    router.push(`/ShowProductScreen?products=${JSON.stringify(products)}&categoryId=${categoryId}`);
+    // console.log(products)
+    router.push({
+      pathname: "/ShowProductScreen",
+      params: { products: JSON.stringify(Array.from(products)) },
+    });
   };
 
   
