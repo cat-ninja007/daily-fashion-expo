@@ -33,6 +33,16 @@ const RootLayout: React.FC = () => {
             ),
           }}
         />
+        
+        <Drawer.Screen
+          name="ShowProductScreen"
+          options={{
+            title: "Show Product",
+            headerStyle: styles.headerStyle,
+            headerTitleAlign: "center",
+            drawerItemStyle: { display: "none" }, // Hide from drawer
+          }}
+        />
       </Drawer>
     </GestureHandlerRootView>
   );

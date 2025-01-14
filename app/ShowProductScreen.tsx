@@ -19,10 +19,7 @@ interface Product {
 }
 
 const ShowProductScreen:FC = () => {
-  // const navigation = useNavigation();
-  // const router = useRouter();
   const params = useLocalSearchParams();
-  // const { id, other } = params;
   const [ products, setProducts ] = useState<Product[]>([]);
 
   
@@ -42,8 +39,9 @@ const ShowProductScreen:FC = () => {
         data={products}
         contentContainerStyle={styles.flatListContainer}
         keyExtractor={(item) => item.id.toString()}
+        ListEmptyComponent={() => <Text style={styles.emptyListText}>No products found.</Text>}
         renderItem={({ item }) => (
-          <TouchableOpacity style={styles.itemButton}y>
+          <TouchableOpacity style={styles.itemButton}>
             <View style={styles.productContainer}>
               <Image 
                 style={styles.image}
@@ -53,7 +51,6 @@ const ShowProductScreen:FC = () => {
                 <Text style={styles.title}>{item.productName}</Text>
                 <Text style={styles.text}>{item.description}</Text>
                 <Text style={styles.text}>{item.price}</Text>
-            
               </View>
             </View>
             <TouchableOpacity>
@@ -104,6 +101,13 @@ const styles = StyleSheet.create({
   text: {
     color: 'black',
     fontSize: 16
+  },
+  emptyListText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: 'black',
+    textAlign: 'center',
+    marginTop: 50
   },
 
 
