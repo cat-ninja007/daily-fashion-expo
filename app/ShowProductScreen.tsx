@@ -1,10 +1,8 @@
 import React, { FC, useEffect, useState} from 'react'
 import { View, Text, FlatList, Image, TouchableOpacity, StyleSheet } from 'react-native'
-// import realm from '@/store/realm';
 import { AntDesign } from '@expo/vector-icons';
-// import { useSearchParams } from 'expo-router/build/hooks';
 import { useLocalSearchParams } from 'expo-router';
-// import { Product } from '@/store/realm/ProductSchema';
+import { MediaComponent } from '@/components/MediaComponent';
 
 interface Product {
   id: number;
@@ -19,11 +17,27 @@ interface Product {
 }
 
 const ShowProductScreen:FC = () => {
-  // const navigation = useNavigation();
-  // const router = useRouter();
   const params = useLocalSearchParams();
-  // const { id, other } = params;
   const [ products, setProducts ] = useState<Product[]>([]);
+  const [ isBuy, setIsBuy ] = useState(false);
+  const [ contact, setContact ] = useState({
+    phoneNumber: '',
+    instagram: '',
+    facebook: ''
+  })
+
+  const buyProduct = (
+    whatsapp: string, 
+    instagramId: string, 
+    facebookId: string
+  ) => {
+    setContact({
+      phoneNumber: whatsapp,
+      instagram: instagramId,
+      facebook: facebookId
+    });
+    setIsBuy(true);
+  }
 
   
   useEffect(() => {
@@ -36,14 +50,18 @@ const ShowProductScreen:FC = () => {
     }
     // console.log('This is the parameter', data)  
   }, [params.products])
+  useEffect(() => {
+    console.log(isBuy)
+  }, [])
   return (
     <View style={styles.mainContainer}>
       <FlatList 
         data={products}
         contentContainerStyle={styles.flatListContainer}
         keyExtractor={(item) => item.id.toString()}
+        ListEmptyComponent={() => <Text style={styles.emptyListText}>No products found.</Text>}
         renderItem={({ item }) => (
-          <TouchableOpacity style={styles.itemButton}y>
+          <TouchableOpacity style={styles.itemButton}>
             <View style={styles.productContainer}>
               <Image 
                 style={styles.image}
@@ -53,15 +71,67 @@ const ShowProductScreen:FC = () => {
                 <Text style={styles.title}>{item.productName}</Text>
                 <Text style={styles.text}>{item.description}</Text>
                 <Text style={styles.text}>{item.price}</Text>
-            
               </View>
             </View>
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => buyProduct(item.phoneNumber, item.instagram, item.facebook)}
+            >
               <AntDesign name="shoppingcart" size={30} color="black" />
             </TouchableOpacity>
           </TouchableOpacity>
         )}
       />
+
+      {
+        isBuy ?
+          <View style={styles.modalContainer}>
+            <View style={styles.box}>
+              <TouchableOpacity 
+                onPress={() => setIsBuy(false)}
+                style={styles.cancel}
+              >
+                <AntDesign name="close" size={30} color="black" />
+              </TouchableOpacity>
+              <Text
+                style={[
+                  styles.sellerText,
+                  styles.title
+                ]}
+              >
+                Contact the seller through this media : 
+              </Text>
+              {
+                contact.phoneNumber !== '' ?
+                  <MediaComponent
+                    imageSource={require('@/assets/images/whatsapp.png')}
+                    value={contact.phoneNumber}
+                  />
+                  :
+                  null
+              }
+              {
+                contact.instagram !== '' ?
+                  <MediaComponent
+                    imageSource={require('@/assets/images/instagram.png')}
+                    value={contact.instagram}
+                  />
+                  :
+                  null
+              }
+              {
+                contact.facebook !== '' ?
+                  <MediaComponent
+                    imageSource={require('@/assets/images/facebook.png')}
+                    value={contact.facebook}
+                  />
+                  :
+                  null
+              }
+            </View>
+          </View>
+          :
+          null
+      }
     </View>
   );
 }
@@ -104,6 +174,39 @@ const styles = StyleSheet.create({
   text: {
     color: 'black',
     fontSize: 16
+  },
+  emptyListText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: 'black',
+    textAlign: 'center',
+    marginTop: 50
+  },
+  modalContainer: {
+    backgroundColor: 'rgba(255, 255, 255, 0.9',
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  box: {
+    width: '80%',
+    backgroundColor: 'white',
+    padding: 16,
+    borderWidth: 1,
+    borderRadius: 10,
+    alignItems: 'center'
+  },
+  cancel: {
+    padding: 8,
+    position: 'absolute',
+    right: 8,
+    top: 8
+  },
+  sellerText: {
+    marginBottom: 8,
+    marginTop: 32
   },
 
 
