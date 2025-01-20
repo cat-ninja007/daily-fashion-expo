@@ -43,6 +43,14 @@ const RootLayout: React.FC = () => {
             drawerItemStyle: { display: "none" }, // Hide from drawer
           }}
         />
+        <Drawer.Screen
+          name="ImageZoomScreen"
+          options={{
+            title: "Image Zoom",
+            headerShown: false,
+            drawerItemStyle: { display: "none" }, // Hide from drawer
+          }}
+        />
       </Drawer>
     </GestureHandlerRootView>
   );

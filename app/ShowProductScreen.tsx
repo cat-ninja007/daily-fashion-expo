@@ -3,6 +3,7 @@ import { View, Text, FlatList, Image, TouchableOpacity, StyleSheet } from 'react
 import { AntDesign } from '@expo/vector-icons';
 import { useLocalSearchParams } from 'expo-router';
 import { MediaComponent } from '@/components/MediaComponent';
+import { Linking } from 'react-native';
 
 interface Product {
   id: number;
@@ -15,6 +16,7 @@ interface Product {
   facebook: string;
   phoneNumber: string;
 }
+
 
 const ShowProductScreen:FC = () => {
   const params = useLocalSearchParams();
@@ -39,6 +41,21 @@ const ShowProductScreen:FC = () => {
     setIsBuy(true);
   }
 
+  // const handleImageZoomPress = (imagePath: string) => {
+  //   const image
+  // }
+
+
+  const onClickMedia = (type:string ) => {
+    if(type === 'whatsapp'){
+      Linking.openURL(`https://wa.me/${contact.phoneNumber}`);
+    } else if(type === 'instagram'){
+      Linking.openURL(`https://instagram.com/${contact.instagram}`);
+    } else if(type === 'facebook'){
+      Linking.openURL(`https://facebook.com/${contact.facebook}`);
+    }
+  }
+
   
   useEffect(() => {
     const data = params.products as unknown as string;
@@ -61,7 +78,9 @@ const ShowProductScreen:FC = () => {
         keyExtractor={(item) => item.id.toString()}
         ListEmptyComponent={() => <Text style={styles.emptyListText}>No products found.</Text>}
         renderItem={({ item }) => (
-          <TouchableOpacity style={styles.itemButton}>
+          <TouchableOpacity 
+              style={styles.itemButton}>
+              onPress
             <View style={styles.productContainer}>
               <Image 
                 style={styles.image}
@@ -105,6 +124,7 @@ const ShowProductScreen:FC = () => {
                   <MediaComponent
                     imageSource={require('@/assets/images/whatsapp.png')}
                     value={contact.phoneNumber}
+                    onPress={() => onClickMedia('whatsapp')}
                   />
                   :
                   null
@@ -114,6 +134,7 @@ const ShowProductScreen:FC = () => {
                   <MediaComponent
                     imageSource={require('@/assets/images/instagram.png')}
                     value={contact.instagram}
+                    onPress={() => onClickMedia('instagram')}
                   />
                   :
                   null
@@ -123,6 +144,7 @@ const ShowProductScreen:FC = () => {
                   <MediaComponent
                     imageSource={require('@/assets/images/facebook.png')}
                     value={contact.facebook}
+                    onPress={() => onClickMedia('facebook')}
                   />
                   :
                   null
