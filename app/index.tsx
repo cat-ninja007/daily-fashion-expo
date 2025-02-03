@@ -5,6 +5,11 @@ import { useRouter } from "expo-router";
 import { imageSlider, categoryList } from "@/data/Data";
 import realm from "@/store/realm";
 import { Product } from "@/store/realm/ProductSchema";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen-hooks";
+
 
 const Index: FC = () => {
   const router = useRouter();
@@ -26,7 +31,7 @@ const Index: FC = () => {
     <View style={styles.mainContainer}>
       <ImageSlider
         data={imageSlider}
-        caroselImageStyle={{ resizeMode: "cover", height: 210 }}
+        caroselImageStyle={{ resizeMode: "cover", height: hp('30%') }}
         autoPlay={true}
         closeIconColor="#fff"
       />
@@ -61,7 +66,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
   text: {
-    fontSize: 18,
+    fontSize: hp("2.5%"),
     fontWeight: "bold",
     color: "black",
   },
@@ -78,13 +83,13 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#7CAF58",
     borderRadius: 10,
-    height: 130,
+    height: hp('17%'),
     justifyContent: "center",
     alignItems: "center",
   },
   icon: {
-    width: 100,
-    height: 100,
+    width: wp('20%'),
+    height: hp('12%'),
     resizeMode: "contain",
   },
   itemName: {
