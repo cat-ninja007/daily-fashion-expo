@@ -40,7 +40,7 @@ const RootLayout: React.FC = () => {
             title: "Show Product",
             headerStyle: styles.headerStyle,
             headerTitleAlign: "center",
-            drawerItemStyle: { display: "none" }, // Hide from drawer
+            drawerItemStyle: { display: "none" }, 
           }}
         />
         <Drawer.Screen
@@ -48,7 +48,7 @@ const RootLayout: React.FC = () => {
           options={{
             title: "Image Zoom",
             headerShown: false,
-            drawerItemStyle: { display: "none" }, // Hide from drawer
+            drawerItemStyle: { display: "none" },
           }}
         />
       </Drawer>
