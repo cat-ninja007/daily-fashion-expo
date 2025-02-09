@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useState, useEffect } from "react";
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, Image } from "react-native";
 import { ImageSlider } from "react-native-image-slider-banner";
 import { useRouter } from "expo-router";
@@ -9,10 +9,11 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen-hooks";
-
+import SplashScreen from "@/components/SplashScreen";
 
 const Index: FC = () => {
   const router = useRouter();
+  const [showSplash, setShowSplash] = useState(true);
 
   const handleIconPress = (categoryId: number) => {
     // Fetch all products from Realm, don't filter here, just pass all products
@@ -24,8 +25,17 @@ const Index: FC = () => {
     });
   };
 
-  
-  
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     setShowSplash(false);
+  //   }, 3000); // Display splash screen for 3 seconds
+
+  //   return () => clearTimeout(timer);
+  // }, []);
+
+  // if (showSplash) {
+  //   return <SplashScreen/>;
+  // }
 
   return (
     <View style={styles.mainContainer}>
